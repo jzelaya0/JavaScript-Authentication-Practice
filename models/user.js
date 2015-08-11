@@ -31,6 +31,13 @@ userSchema.pre('save', function(next) {
   });
 });
 
+//Add an authenticate method to the user schema
+userSchema.methods.authenticate = function (password) {
+  var user = this;
+
+  return bcrypt.compareSync(password, user.password);
+};
+
 //Create user model out of userSchema (constructor function)
 var User = mongoose.model('User',userSchema);
 
