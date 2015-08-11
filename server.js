@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //database connection
 mongoose.connect('mongodb://localhost:27017/bcrypt');
+var User = require('./models/user.js');
 //=====================================
 
 //ROUTES CONFIGURATION
@@ -40,7 +41,13 @@ apiRouter.route('/').get(function(request,response){
   });
 apiRouter.route('/users')
   .get(function(request,response) {
-    response.json({message: "Here are all my users!"});
+    //grab all users from the mongo db
+    User.find(function(err, users){
+      //check for error and send the messgae
+      if(err) return response.status(401).send({message: err.message})
+      //return all users as json format
+      response.json(users);
+    });
   });
 
 
