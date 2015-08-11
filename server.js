@@ -18,9 +18,23 @@ var app = express();
 //user morgan to show requests
 app.use(morgan('dev'));
 //use body-parser so we can grab info from params.body
-app.use(body-parser.json());
-app.use(body-parser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 //database connection
-mongoose.connect('mongodb://localhost:2701/bcrypt');
+mongoose.connect('mongodb://localhost:27017/bcrypt');
+//=====================================
+
+//ROUTES CONFIGURATION
+//=====================================
+app.get('/', function (request,response) {
+  response.send('Welcome to the Home Page');
+});
+
+//=====================================
+
+
+//SERVER PORT
+//=====================================
+app.listen(3000);
 //=====================================
