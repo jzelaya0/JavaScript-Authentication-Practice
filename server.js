@@ -14,6 +14,7 @@ var bcrypt      = require('bcrypt');//encrypts your passwords
 //=====================================
 
 var app = express();
+var apiRouter = express.Router();
 
 //user morgan to show requests
 app.use(morgan('dev'));
@@ -27,12 +28,29 @@ mongoose.connect('mongodb://localhost:27017/bcrypt');
 
 //ROUTES CONFIGURATION
 //=====================================
-app.get('/', function (request,response) {
+app.get('/', function(request,response) {
   response.send('Welcome to the Home Page');
 });
 
+
+//API ROUTES
+//==================
+apiRouter.route('/').get(function(request,response){
+    response.json({message: "Welcome to the API homepage"});
+  });
+apiRouter.route('/users')
+  .get(function(request,response) {
+    response.json({message: "Here are all my users!"});
+  });
+
+
 //=====================================
 
+//REGISTER ROUTES
+//==================
+app.use('/api', apiRouter);
+
+//==================
 
 //SERVER PORT
 //=====================================
